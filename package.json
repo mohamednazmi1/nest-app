@@ -25,6 +25,8 @@
     "@adminjs/nestjs": "^5.0.0",
     "@adminjs/typeorm": "^4.0.0",
     "@adminjs/upload": "^3.0.0",
+    "@aws-sdk/client-s3": "^3.142.0",
+    "@aws-sdk/s3-request-presigner": "^3.142.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",

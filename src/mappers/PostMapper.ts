@@ -19,13 +19,13 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
     super();
   }
 
-  public toDto(post: Post, options?: PostOptions): PostDto {
-    return !options?.detailed
+  public async toDto(post: Post, options?: PostOptions): Promise<PostDto> {
+    return await (!options?.detailed
       ? this.toShortDto(post)
-      : this.toDetailedDto(post);
+      : this.toDetailedDto(post));
   }
 
-  private toShortDto(post: Post): PostDto {
+  private async toShortDto(post: Post): Promise<PostDto> {
     return {
       id: post.id,
       slug: this.getSlug(post),
@@ -34,14 +34,14 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
       readTime: post.readTime,
       numOfVisits: post.numOfVisits,
       isPinned: post.isPinned,
-      author: this.employeeMapper.toDto(post.author),
+      author: await this.employeeMapper.toDto(post.author),
       relatedTopic: this.topicMapper.toDto(post.topic),
     };
   }
 
-  private toDetailedDto(post: Post): PostDto {
+  private async toDetailedDto(post: Post): Promise<PostDto> {
     return {
-      ...this.toShortDto(post),
+      ...(await this.toShortDto(post)),
       content: post.content,
     };
   }

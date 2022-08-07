@@ -20,8 +20,8 @@ export default class TeamController {
     const meta = await this.metaRepository.findByKey(MetaKey.Team);
     const employees = await this.employeeRepository.findAll();
     const data = {
-      employees: employees.map((employee) =>
-        this.employeeMapper.toDto(employee),
+      employees: await Promise.all(
+        employees.map((employee) => this.employeeMapper.toDto(employee)),
       ),
     };
     return this.responder.format(meta, data);

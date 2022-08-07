@@ -2,10 +2,11 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 
 import BaseModel from './BaseModel';
 import Post from './Post';
+import { TrimTransformer } from './transformers';
 
 @Entity({ name: 'topics' })
 export default class Topic extends BaseModel {
-  @Column()
+  @Column({ transformer: TrimTransformer })
   name: string;
 
   @OneToMany(() => Post, (post) => post.topic)

@@ -34,6 +34,13 @@ const config = {
     },
     sessionSecret: process.env.SESSION_SECRET || 'session-secret',
   },
+  s3: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+    bucket: 'blink22-website-file-storage',
+    endpoint: 'https://nyc3.digitaloceanspaces.com',
+    region: 'nyc3',
+  },
 };
 
 export default config;

@@ -10,13 +10,15 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const EmployeeResource: ResourceWithOptions = {
   resource: Employee,
   options: {
     parent: Sidebar.Admin,
     properties: {
-      ...getBaseProperties({ title: 'lastName' }),
+      ...getBaseProperties({ title: 'name' }),
+      ...getMediaProperties('image'),
     },
     actions: {
       list: {
@@ -30,31 +32,12 @@ const EmployeeResource: ResourceWithOptions = {
       delete: { isAccessible: false },
       bulkDelete: { isAccessible: false },
     },
-    listProperties: [
-      ...baseListProperties,
-      'firstName',
-      'lastName',
-      'workPosition',
-    ],
-    showProperties: [
-      ...baseShowProperties,
-      'firstName',
-      'lastName',
-      'workPosition',
-    ],
-    editProperties: [
-      ...baseEditProperties,
-      'firstName',
-      'lastName',
-      'workPosition',
-    ],
-    filterProperties: [
-      ...baseFilterProperties,
-      'firstName',
-      'lastName',
-      'workPosition',
-    ],
+    listProperties: [...baseListProperties, 'name', 'workPosition'],
+    showProperties: [...baseShowProperties, 'name', 'workPosition', 'image'],
+    editProperties: [...baseEditProperties, 'name', 'workPosition', 'image'],
+    filterProperties: [...baseFilterProperties, 'name', 'workPosition'],
   },
+  features: [getMediaFeature('image')],
 };
 
 export default EmployeeResource;

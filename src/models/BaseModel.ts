@@ -14,7 +14,7 @@ export default class BaseModel extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column()
   slug: string;
 
   @Column({ nullable: true })

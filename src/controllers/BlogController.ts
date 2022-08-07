@@ -23,7 +23,9 @@ export default class BlogController {
       ? await this.postRepository.findAll()
       : await this.postRepository.findByTopic(topicId);
     const data = {
-      blogs: posts.map((post) => this.postMapper.toDto(post)),
+      blogs: await Promise.all(
+        posts.map((post) => this.postMapper.toDto(post)),
+      ),
     };
     return this.responder.format(meta, data);
   }
@@ -35,7 +37,7 @@ export default class BlogController {
       return this.responder.format404(response);
     }
     const data = {
-      blog: this.postMapper.toDto(post, { detailed: true }),
+      blog: await this.postMapper.toDto(post, { detailed: true }),
     };
     return this.responder.format(post, data, response);
   }
