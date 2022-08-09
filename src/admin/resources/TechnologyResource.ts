@@ -30,9 +30,9 @@ const TechnologyResource: ResourceWithOptions = {
       delete: { isAccessible: false },
       bulkDelete: { isAccessible: false },
     },
-    listProperties: [...baseListProperties, 'title', 'description'],
-    showProperties: [...baseShowProperties, 'title', 'description'],
-    editProperties: [...baseEditProperties, 'title', 'description'],
+    listProperties: [...baseListProperties, 'title'],
+    showProperties: [...baseShowProperties, 'title'],
+    editProperties: [...baseEditProperties, 'title'],
     filterProperties: [...baseFilterProperties, 'title'],
   },
 };

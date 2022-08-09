@@ -5,10 +5,13 @@ import TopicDto from './TopicDto';
 export default interface PostDto extends BaseDto {
   title: string;
   brief: string;
-  content?: string;
   readTime: number;
   numOfVisits: number;
   isPinned: boolean;
   author: EmployeeDto;
   relatedTopic: TopicDto;
+}
+
+export interface DetailedPostDto extends PostDto {
+  content: string;
 }

@@ -5,12 +5,10 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  OneToMany,
 } from 'typeorm';
 
 import BaseModel from './BaseModel';
 import Project from './Project';
-import RelatedService from './RelatedService';
 
 @Entity({ name: 'services' })
 export default class Service extends BaseModel {
@@ -20,17 +18,14 @@ export default class Service extends BaseModel {
   @Column()
   brief: string;
 
-  @Column()
-  linkName: string;
-
   @Column({ nullable: true })
   fillerText1: string;
 
   @Column({ nullable: true })
   fillerText2: string;
 
-  @OneToMany(() => RelatedService, (relatedService) => relatedService.service)
-  relatedServices: RelatedService[];
+  @Column('character varying', { array: true, default: [] })
+  items: string[];
 
   @ManyToMany(() => Project, (project) => project.services)
   @JoinTable({

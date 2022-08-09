@@ -2,7 +2,6 @@ import { ResourceWithOptions } from 'adminjs';
 
 import AdminResource from './AdminResource';
 import CareerResource from './CareerResource';
-import ClientResource from './ClientResource';
 import EmployeeResource from './EmployeeResource';
 import MetaResource from './MetaResource';
 import PostResource from './PostResource';
@@ -16,7 +15,6 @@ import WorkBenefitResource from './WorkBenefitResource';
 const resources: ResourceWithOptions[] = [
   AdminResource,
   CareerResource,
-  ClientResource,
   EmployeeResource,
   MetaResource,
   PostResource,

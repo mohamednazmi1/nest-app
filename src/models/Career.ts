@@ -2,29 +2,30 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 
 import Application from './Application';
 import BaseModel from './BaseModel';
+import { TrimTransformer } from './transformers';
 
 @Entity({ name: 'careers' })
 export default class Career extends BaseModel {
-  @Column({ unique: true })
+  @Column({ unique: true, transformer: TrimTransformer })
   title: string;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   brief: string;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   description: string;
 
   @Column({ nullable: true })
   location: string;
 
-  @Column()
-  softSkills: string;
+  @Column('character varying', { array: true, default: [] })
+  softSkills: string[];
 
-  @Column()
-  hardSkills: string;
+  @Column('character varying', { array: true, default: [] })
+  hardSkills: string[];
 
-  @Column()
-  perksAndBenefits: string;
+  @Column('character varying', { array: true, default: [] })
+  perksAndBenefits: string[];
 
   @OneToMany(() => Application, (application) => application.career)
   applications: Application[];

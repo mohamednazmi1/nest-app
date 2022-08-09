@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import BaseMapper from './BaseMapper';
 import Service from '@src/models/Service';
-import ServiceDto from '@src/dtos/ServiceDto';
+import ServiceDto, { DetailedServiceDto } from '@src/dtos/ServiceDto';
 
 interface ServiceOptions {
   detailed: boolean;
@@ -25,15 +25,13 @@ export default class ServiceMapper extends BaseMapper<Service, ServiceDto> {
     };
   }
 
-  private toDetailedDto(service: Service): ServiceDto {
+  private toDetailedDto(service: Service): DetailedServiceDto {
     return {
       ...this.toShortDto(service),
       fillerText1: service.fillerText1,
       fillerText2: service.fillerText2,
       projectImage: service.projects[0]?.title,
-      relatedServices: service.relatedServices.map(
-        (relatedService) => relatedService.name,
-      ),
+      items: service.items,
     };
   }
 }

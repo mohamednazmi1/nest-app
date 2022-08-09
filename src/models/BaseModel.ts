@@ -8,19 +8,20 @@ import {
 } from 'typeorm';
 
 import Status from '@src/shared/Status';
+import { TrimTransformer } from './transformers';
 
 @Entity()
 export default class BaseModel extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   slug: string;
 
-  @Column({ nullable: true })
+  @Column({ transformer: TrimTransformer })
   metaTitle: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, transformer: TrimTransformer })
   metaDescription: string;
 
   @Column({ default: 0 })
@@ -36,6 +37,9 @@ export default class BaseModel extends BaseEntity {
   updatedAt: Date;
 
   generateSlug(text: string) {
-    return text.trim().toLowerCase().replace(/\s+/g, '-');
+    return text
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]/g, '-');
   }
 }

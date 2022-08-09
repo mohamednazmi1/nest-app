@@ -9,14 +9,12 @@ import {
 
 import BaseModel from './BaseModel';
 import Project from './Project';
+import { TrimTransformer } from './transformers';
 
 @Entity({ name: 'technologies' })
 export default class Technology extends BaseModel {
-  @Column()
+  @Column({ unique: true, transformer: TrimTransformer })
   title: string;
-
-  @Column()
-  description: string;
 
   @ManyToMany(() => Project, (project) => project.technologies)
   @JoinTable({

@@ -1,6 +1,5 @@
 import CareerRepository from './CareerRepository';
 import EmployeeRepository from './EmployeeRepository';
-import HomeProjectRepository from './HomeProjectRepository';
 import MetaRepository from './MetaRepository';
 import PostRepository from './PostRepository';
 import ProjectRepository from './ProjectRepository';
@@ -11,7 +10,6 @@ import TestimonialRepository from './TestimonialRepository';
 export default [
   CareerRepository,
   EmployeeRepository,
-  HomeProjectRepository,
   MetaRepository,
   PostRepository,
   ProjectRepository,

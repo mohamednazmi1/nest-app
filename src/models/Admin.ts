@@ -1,43 +1,21 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import { TrimAndLowerTransformer } from './transformers';
 
-@Entity({ name: 'admin_users' })
+@Entity({ name: 'admins' })
 export default class Admin extends BaseModel {
-  @Column()
+  @Column({ transformer: TrimAndLowerTransformer })
   email: string;
 
   @Column()
   encryptedPassword: string;
 
-  @Column({ nullable: true })
-  resetPasswordToken: string;
-
-  @Column({ nullable: true })
-  resetPasswordSentAt: Date;
-
-  @Column({ nullable: true })
-  rememberCreatedAt: Date;
-
-  @Column({ default: 0 })
-  signInCount: number;
-
-  @Column()
-  currentSignInAt: Date;
-
-  @Column()
-  lastSignInAt: Date;
-
-  @Column()
-  currentSignInIp: string;
-
-  @Column()
-  lastSignInIp: string;
-
   @BeforeInsert()
   @BeforeUpdate()
   setMetaData() {
-    this.slug = this.generateSlug(this.email);
-    this.metaTitle = this.email;
+    const slicedEmail = this.email.slice(0, this.email.indexOf('@'));
+    this.slug = this.generateSlug(slicedEmail);
+    this.metaTitle = slicedEmail;
   }
 }

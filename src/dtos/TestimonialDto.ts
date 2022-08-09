@@ -8,5 +8,6 @@ interface AuthorDto {
 
 export default interface TestimonialDto extends BaseDto {
   description: string;
+  clutchUrl: string;
   author: AuthorDto;
 }

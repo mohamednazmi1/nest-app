@@ -6,9 +6,7 @@ import SoftwareProcess from '@src/models/SoftwareProcess';
 
 @Injectable()
 export default class SoftwareProcessRepository extends BaseRepository<SoftwareProcess> {
-  protected relations: FindOptionsRelations<SoftwareProcess> = {
-    points: true,
-  };
+  protected relations: FindOptionsRelations<SoftwareProcess> = {};
 
   constructor() {
     super(SoftwareProcess);

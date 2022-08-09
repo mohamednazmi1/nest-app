@@ -16,7 +16,7 @@ export default class SoftwareProcessMapper extends BaseMapper<
       title: process.title,
       fillerText1: process.fillerText1,
       fillerText2: process.fillerText2,
-      points: process.points.map((point) => point.name),
+      items: process.items,
     };
   }
 }

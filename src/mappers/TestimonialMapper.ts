@@ -14,9 +14,10 @@ export default class TestimonialMapper extends BaseMapper<
       id: testimonial.id,
       slug: this.getSlug(testimonial),
       description: testimonial.description,
+      clutchUrl: testimonial.clutchUrl,
       author: {
-        name: testimonial.authorName.trim(),
-        position: testimonial.authorPosition.trim(),
+        name: testimonial.authorName,
+        position: testimonial.authorPosition,
       },
     };
   }

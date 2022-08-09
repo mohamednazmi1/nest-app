@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import BaseMapper from './BaseMapper';
 import EmployeeMapper from './EmployeeMapper';
 import Post from '@src/models/Post';
-import PostDto from '@src/dtos/PostDto';
+import PostDto, { DetailedPostDto } from '@src/dtos/PostDto';
 import TopicMapper from './TopicMapper';
 
 interface PostOptions {
@@ -39,7 +39,7 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
     };
   }
 
-  private async toDetailedDto(post: Post): Promise<PostDto> {
+  private async toDetailedDto(post: Post): Promise<DetailedPostDto> {
     return {
       ...(await this.toShortDto(post)),
       content: post.content,

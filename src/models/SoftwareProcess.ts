@@ -1,7 +1,6 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 
 import BaseModel from './BaseModel';
-import ProcessPoint from './ProcessPoint';
 
 @Entity({ name: 'software_processes' })
 export default class SoftwareProcess extends BaseModel {
@@ -14,8 +13,8 @@ export default class SoftwareProcess extends BaseModel {
   @Column({ nullable: true })
   fillerText2: string;
 
-  @OneToMany(() => ProcessPoint, (processPoint) => processPoint.softwareProcess)
-  points: ProcessPoint[];
+  @Column('character varying', { array: true, default: [] })
+  items: string[];
 
   @BeforeInsert()
   @BeforeUpdate()

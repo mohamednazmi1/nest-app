@@ -14,9 +14,6 @@ const getEnv = (env?: string): Env => {
 const config = {
   env: getEnv(process.env.NODE_ENV),
   port: process.env.PORT || 3001,
-  auth: {
-    secretKey: process.env.JWT_SECRET || 'secret-key',
-  },
   db: {
     host: process.env.PSQL_HOST || 'localhost',
     port: 5432,

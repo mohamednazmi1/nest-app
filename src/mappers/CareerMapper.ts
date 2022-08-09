@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import BaseMapper from './BaseMapper';
 import Career from '@src/models/Career';
-import CareerDto from '@src/dtos/CareerDto';
+import CareerDto, { DetailedCareerDto } from '@src/dtos/CareerDto';
 
 interface CareerOptions {
   detailed: boolean;
@@ -25,7 +25,7 @@ export default class CareerMapper extends BaseMapper<Career, CareerDto> {
     };
   }
 
-  private toDetailedDto(career: Career): CareerDto {
+  private toDetailedDto(career: Career): DetailedCareerDto {
     return {
       ...this.toShortDto(career),
       description: career.description,

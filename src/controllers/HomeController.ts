@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 
-import HomeProjectMapper from '@src/mappers/HomeProjectMapper';
-import HomeProjectRepository from '@src/repositories/HomeProjectRepository';
 import MetaKey from '@src/shared/MetaKey';
 import MetaRepository from '@src/repositories/MetaRepository';
+import ProjectMapper from '@src/mappers/ProjectMapper';
+import ProjectRepository from '@src/repositories/ProjectRepository';
 import Responder from '@src/utils/Responder';
 import ServiceMapper from '@src/mappers/ServiceMapper';
 import ServiceRepository from '@src/repositories/ServiceRepository';
@@ -13,8 +13,8 @@ import TestimonialRepository from '@src/repositories/TestimonialRepository';
 @Controller('/home')
 export default class HomeController {
   constructor(
-    private readonly projectRepository: HomeProjectRepository,
-    private readonly projectMapper: HomeProjectMapper,
+    private readonly projectRepository: ProjectRepository,
+    private readonly projectMapper: ProjectMapper,
     private readonly serviceRepository: ServiceRepository,
     private readonly serviceMapper: ServiceMapper,
     private readonly testimonialRepository: TestimonialRepository,
@@ -26,7 +26,7 @@ export default class HomeController {
   @Get('/')
   async list() {
     const meta = await this.metaRepository.findByKey(MetaKey.Home);
-    const projects = await this.projectRepository.findAll();
+    const projects = await this.projectRepository.findInHome();
     const services = await this.serviceRepository.findAll();
     const testimonials = await this.testimonialRepository.findAll();
     const data = {

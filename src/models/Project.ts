@@ -9,26 +9,31 @@ import {
 } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import Platform from '@src/shared/Platform';
 import Service from './Service';
 import Technology from './Technology';
 import Testimonial from './Testimonial';
+import { TrimTransformer } from './transformers';
 
 @Entity({ name: 'projects' })
 export default class Project extends BaseModel {
-  @Column()
+  @Column({ transformer: TrimTransformer })
   title: string;
 
   @Column({ nullable: true })
   brief: string;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   description: string;
 
-  @Column()
-  category: string;
+  @Column({ default: false })
+  home: boolean;
 
-  @Column()
-  platform: string;
+  @Column('character varying', { array: true, default: [] })
+  categories: string[];
+
+  @Column('character varying', { array: true, default: [] })
+  platforms: Platform[];
 
   @Column({ nullable: true })
   challenge: string;

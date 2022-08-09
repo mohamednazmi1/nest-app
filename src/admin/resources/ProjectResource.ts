@@ -1,5 +1,6 @@
 import { ResourceWithOptions } from 'adminjs';
 
+import Platform from '@src/shared/Platform';
 import Project from '@src/models/Project';
 import Sidebar from '../utils/Sidebar';
 import {
@@ -17,6 +18,11 @@ const ProjectResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'title' }),
+      platforms: {
+        availableValues: Object.values(Platform).map((value) => {
+          return { value, label: value };
+        }),
+      },
     },
     actions: {
       list: {
@@ -34,16 +40,16 @@ const ProjectResource: ResourceWithOptions = {
       ...baseListProperties,
       'title',
       'brief',
-      'category',
-      'platform',
+      'categories',
+      'platforms',
     ],
     showProperties: [
       ...baseShowProperties,
       'title',
       'brief',
       'description',
-      'category',
-      'platform',
+      'categories',
+      'platforms',
       'challenge',
       'solution',
       'outcome',
@@ -53,8 +59,8 @@ const ProjectResource: ResourceWithOptions = {
       'title',
       'brief',
       'description',
-      'category',
-      'platform',
+      'categories',
+      'platforms',
       'challenge',
       'solution',
       'outcome',
