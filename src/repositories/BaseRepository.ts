@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { FindOptionsRelations, FindOptionsWhere } from 'typeorm';
+import {
+  FindOptionsOrder,
+  FindOptionsRelations,
+  FindOptionsWhere,
+} from 'typeorm';
 
 import BaseModel from '@src/models/BaseModel';
 import Status from '@src/shared/Status';
 
 @Injectable()
 export default abstract class BaseRepository<T extends BaseModel> {
+  protected order: FindOptionsOrder<T> | null = null;
   protected abstract relations: FindOptionsRelations<T>;
 
   constructor(protected model: typeof BaseModel) {}
@@ -13,7 +18,7 @@ export default abstract class BaseRepository<T extends BaseModel> {
   public async findAll(): Promise<T[]> {
     return (await this.model.find({
       where: { status: Status.Published },
-      order: { position: 'asc' },
+      order: this.order || { position: 'asc' },
       relations: this.relations,
     })) as T[];
   }

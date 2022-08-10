@@ -22,6 +22,8 @@ export default class ProjectMapper extends BaseMapper<Project, ProjectDto> {
       slug: this.getSlug(project),
       title: project.title,
       brief: project.brief,
+      technologies: project.technologies.map((technology) => technology.title),
+      services: project.services.map((service) => service.name),
     };
   }
 
@@ -29,7 +31,6 @@ export default class ProjectMapper extends BaseMapper<Project, ProjectDto> {
     return {
       ...this.toShortDto(project),
       description: project.description,
-      technologies: project.technologies.map((technology) => technology.title),
       categories: project.categories,
       platforms: project.platforms,
       challenge: project.challenge,

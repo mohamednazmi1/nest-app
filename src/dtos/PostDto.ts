@@ -6,8 +6,7 @@ export default interface PostDto extends BaseDto {
   title: string;
   brief: string;
   readTime: number;
-  numOfVisits: number;
-  isPinned: boolean;
+  createdAt: Date;
   author: EmployeeDto;
   relatedTopic: TopicDto;
 }

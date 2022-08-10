@@ -8,6 +8,7 @@ enum MetaKey {
   Process = 'Process Page',
   Team = 'Team Page',
   Partner = 'Become A Partner Page',
+  Quote = 'Request A Quote Page',
 }
 
 export default MetaKey;

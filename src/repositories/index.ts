@@ -6,6 +6,8 @@ import ProjectRepository from './ProjectRepository';
 import ServiceRepository from './ServiceRepository';
 import SoftwareProcessRepository from './SoftwareProcessRepository';
 import TestimonialRepository from './TestimonialRepository';
+import TopicRepository from './TopicRepository';
+import WorkBenefitRepository from './WorkBenefitRepository';
 
 export default [
   CareerRepository,
@@ -16,4 +18,6 @@ export default [
   ServiceRepository,
   SoftwareProcessRepository,
   TestimonialRepository,
+  TopicRepository,
+  WorkBenefitRepository,
 ];

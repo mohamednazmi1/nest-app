@@ -6,6 +6,7 @@ import ServiceMapper from './ServiceMapper';
 import SoftwareProcessMapper from './SoftwareProcessMapper';
 import TestimonialMapper from './TestimonialMapper';
 import TopicMapper from './TopicMapper';
+import WorkBenefitMapper from './WorkBenefitMapper';
 
 export default [
   CareerMapper,
@@ -16,4 +17,5 @@ export default [
   SoftwareProcessMapper,
   TestimonialMapper,
   TopicMapper,
+  WorkBenefitMapper,
 ];

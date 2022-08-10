@@ -1,4 +1,4 @@
-import { FindOptionsRelations } from 'typeorm';
+import { FindOptionsRelations, Not } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 import BaseRepository from './BaseRepository';
@@ -7,7 +7,10 @@ import Status from '@src/shared/Status';
 
 @Injectable()
 export default class ProjectRepository extends BaseRepository<Project> {
-  protected relations: FindOptionsRelations<Project> = { technologies: true };
+  protected relations: FindOptionsRelations<Project> = {
+    services: true,
+    technologies: true,
+  };
 
   constructor() {
     super(Project);
@@ -17,6 +20,15 @@ export default class ProjectRepository extends BaseRepository<Project> {
     return await Project.find({
       where: { status: Status.Published, home: true },
       order: { position: 'asc' },
+      relations: this.relations,
+    });
+  }
+
+  public async findMore(id: number): Promise<Project[]> {
+    return await Project.find({
+      where: { status: Status.Published, id: Not(id) },
+      order: { position: 'asc' },
+      take: 2,
       relations: this.relations,
     });
   }

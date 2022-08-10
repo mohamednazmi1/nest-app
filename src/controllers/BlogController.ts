@@ -5,6 +5,8 @@ import MetaKey from '@src/shared/MetaKey';
 import MetaRepository from '@src/repositories/MetaRepository';
 import PostMapper from '@src/mappers/PostMapper';
 import PostRepository from '@src/repositories/PostRepository';
+import TopicMapper from '@src/mappers/TopicMapper';
+import TopicRepository from '@src/repositories/TopicRepository';
 import Responder from '@src/utils/Responder';
 
 @Controller('/blogs')
@@ -12,6 +14,8 @@ export default class BlogController {
   constructor(
     private readonly postRepository: PostRepository,
     private readonly postMapper: PostMapper,
+    private readonly topicRepository: TopicRepository,
+    private readonly topicMapper: TopicMapper,
     private readonly metaRepository: MetaRepository,
     private readonly responder: Responder,
   ) {}
@@ -23,9 +27,10 @@ export default class BlogController {
       ? await this.postRepository.findAll()
       : await this.postRepository.findByTopic(topicId);
     const data = {
-      blogs: await Promise.all(
+      posts: await Promise.all(
         posts.map((post) => this.postMapper.toDto(post)),
       ),
+      ...(await this.getHighlights()),
     };
     return this.responder.format(meta, data);
   }
@@ -36,9 +41,29 @@ export default class BlogController {
     if (!post) {
       return this.responder.format404(response);
     }
+    const morePosts = await this.postRepository.findMore(post.id, post.topicId);
     const data = {
-      blog: await this.postMapper.toDto(post, { detailed: true }),
+      post: await this.postMapper.toDto(post, { detailed: true }),
+      ...(await this.getHighlights()),
+      morePosts: await Promise.all(
+        morePosts.map((post) => this.postMapper.toDto(post)),
+      ),
     };
     return this.responder.format(post, data, response);
+  }
+
+  private async getHighlights() {
+    const topics = await this.topicRepository.findAll();
+    const pinnedPosts = await this.postRepository.findPinned();
+    const popularPosts = await this.postRepository.findPopular();
+    return {
+      topics: topics.map((topic) => this.topicMapper.toDto(topic)),
+      pinnedPosts: await Promise.all(
+        pinnedPosts.map((post) => this.postMapper.toDto(post)),
+      ),
+      popularPosts: await Promise.all(
+        popularPosts.map((post) => this.postMapper.toDto(post)),
+      ),
+    };
   }
 }

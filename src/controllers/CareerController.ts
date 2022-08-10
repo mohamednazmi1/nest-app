@@ -6,12 +6,16 @@ import CareerRepository from '@src/repositories/CareerRepository';
 import MetaKey from '@src/shared/MetaKey';
 import MetaRepository from '@src/repositories/MetaRepository';
 import Responder from '@src/utils/Responder';
+import WorkBenefitMapper from '@src/mappers/WorkBenefitMapper';
+import WorkBenefitRepository from '@src/repositories/WorkBenefitRepository';
 
 @Controller('/careers')
 export default class CareerController {
   constructor(
     private readonly careerRepository: CareerRepository,
     private readonly careerMapper: CareerMapper,
+    private readonly workBenefitRepository: WorkBenefitRepository,
+    private readonly workBenefitMapper: WorkBenefitMapper,
     private readonly metaRepository: MetaRepository,
     private readonly responder: Responder,
   ) {}
@@ -19,8 +23,12 @@ export default class CareerController {
   @Get('/')
   async list() {
     const meta = await this.metaRepository.findByKey(MetaKey.Careers);
+    const benefits = await this.workBenefitRepository.findAll();
     const careers = await this.careerRepository.findAll();
     const data = {
+      benefits: benefits.map((benefit) =>
+        this.workBenefitMapper.toDto(benefit),
+      ),
       careers: careers.map((career) => this.careerMapper.toDto(career)),
     };
     return this.responder.format(meta, data);

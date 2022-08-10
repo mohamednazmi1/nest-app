@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,6 +17,7 @@ export default class BaseModel extends BaseEntity {
   id: number;
 
   @Column({ transformer: TrimTransformer })
+  @Index()
   slug: string;
 
   @Column({ transformer: TrimTransformer })

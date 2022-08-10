@@ -32,8 +32,7 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
       title: post.title,
       brief: post.brief,
       readTime: post.readTime,
-      numOfVisits: post.numOfVisits,
-      isPinned: post.isPinned,
+      createdAt: post.createdAt,
       author: await this.employeeMapper.toDto(post.author),
       relatedTopic: this.topicMapper.toDto(post.topic),
     };
