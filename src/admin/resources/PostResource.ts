@@ -10,6 +10,7 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const PostResource: ResourceWithOptions = {
   resource: Post,
@@ -17,6 +18,7 @@ const PostResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'title' }),
+      ...getMediaProperties('image'),
       content: {
         type: 'richtext',
       },
@@ -45,6 +47,7 @@ const PostResource: ResourceWithOptions = {
       ...baseShowProperties,
       'title',
       'brief',
+      'image',
       'content',
       'readTime',
       'isPinned',
@@ -55,6 +58,7 @@ const PostResource: ResourceWithOptions = {
       ...baseEditProperties,
       'title',
       'brief',
+      'image',
       'content',
       'readTime',
       'isPinned',
@@ -62,6 +66,7 @@ const PostResource: ResourceWithOptions = {
     ],
     filterProperties: [...baseFilterProperties, 'title', 'authorId'],
   },
+  features: [getMediaFeature('image')],
 };
 
 export default PostResource;

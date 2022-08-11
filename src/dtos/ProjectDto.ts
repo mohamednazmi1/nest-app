@@ -6,6 +6,7 @@ export default interface ProjectDto extends BaseDto {
   brief: string;
   technologies: string[];
   services: string[];
+  image: string | null;
 }
 
 export interface DetailedProjectDto extends ProjectDto {
@@ -15,4 +16,5 @@ export interface DetailedProjectDto extends ProjectDto {
   challenge: string;
   solution: string;
   outcome: string;
+  coverImage: string | null;
 }

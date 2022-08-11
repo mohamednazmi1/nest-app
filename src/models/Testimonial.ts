@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import File from '../shared/File';
 import Project from './Project';
 import { TrimTransformer } from './transformers';
 
@@ -18,6 +19,9 @@ export default class Testimonial extends BaseModel {
 
   @Column({ transformer: TrimTransformer })
   authorPosition: string;
+
+  @Column('jsonb', { nullable: true })
+  authorImage: File;
 
   @Column({ transformer: TrimTransformer })
   description: string;

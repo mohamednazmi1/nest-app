@@ -26,8 +26,12 @@ export default class ProjectController {
     const services = await this.serviceRepository.findAll();
     const projects = await this.projectRepository.findAll();
     const data = {
-      services: services.map((service) => this.serviceMapper.toDto(service)),
-      projects: projects.map((project) => this.projectMapper.toDto(project)),
+      services: await Promise.all(
+        services.map((service) => this.serviceMapper.toDto(service)),
+      ),
+      projects: await Promise.all(
+        projects.map((project) => this.projectMapper.toDto(project)),
+      ),
     };
     return this.responder.format(meta, data);
   }
@@ -40,9 +44,9 @@ export default class ProjectController {
     }
     const moreProjects = await this.projectRepository.findMore(project.id);
     const data = {
-      project: this.projectMapper.toDto(project, { detailed: true }),
-      moreProjects: moreProjects.map((project) =>
-        this.projectMapper.toDto(project),
+      project: await this.projectMapper.toDto(project, { detailed: true }),
+      moreProjects: await Promise.all(
+        moreProjects.map((project) => this.projectMapper.toDto(project)),
       ),
     };
     return this.responder.format(project, data, response);

@@ -30,10 +30,16 @@ export default class HomeController {
     const services = await this.serviceRepository.findAll();
     const testimonials = await this.testimonialRepository.findAll();
     const data = {
-      projects: projects.map((project) => this.projectMapper.toDto(project)),
-      services: services.map((service) => this.serviceMapper.toDto(service)),
-      testimonials: testimonials.map((testimonial) =>
-        this.testimonialMapper.toDto(testimonial),
+      projects: await Promise.all(
+        projects.map((project) => this.projectMapper.toDto(project)),
+      ),
+      services: await Promise.all(
+        services.map((service) => this.serviceMapper.toDto(service)),
+      ),
+      testimonials: await Promise.all(
+        testimonials.map((testimonial) =>
+          this.testimonialMapper.toDto(testimonial),
+        ),
       ),
     };
     return this.responder.format(meta, data);

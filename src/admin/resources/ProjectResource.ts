@@ -11,6 +11,7 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const ProjectResource: ResourceWithOptions = {
   resource: Project,
@@ -18,6 +19,8 @@ const ProjectResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'title' }),
+      ...getMediaProperties('image'),
+      ...getMediaProperties('coverImage'),
       platforms: {
         availableValues: Object.values(Platform).map((value) => {
           return { value, label: value };
@@ -36,13 +39,7 @@ const ProjectResource: ResourceWithOptions = {
       delete: { isAccessible: false },
       bulkDelete: { isAccessible: false },
     },
-    listProperties: [
-      ...baseListProperties,
-      'title',
-      'brief',
-      'categories',
-      'platforms',
-    ],
+    listProperties: [...baseListProperties, 'title', 'brief'],
     showProperties: [
       ...baseShowProperties,
       'title',
@@ -53,6 +50,8 @@ const ProjectResource: ResourceWithOptions = {
       'challenge',
       'solution',
       'outcome',
+      'image',
+      'coverImage',
     ],
     editProperties: [
       ...baseEditProperties,
@@ -64,9 +63,12 @@ const ProjectResource: ResourceWithOptions = {
       'challenge',
       'solution',
       'outcome',
+      'image',
+      'coverImage',
     ],
     filterProperties: [...baseFilterProperties, 'title'],
   },
+  features: [getMediaFeature('image'), getMediaFeature('coverImage')],
 };
 
 export default ProjectResource;

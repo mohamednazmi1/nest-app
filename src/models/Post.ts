@@ -9,6 +9,7 @@ import {
 
 import BaseModel from './BaseModel';
 import Employee from './Employee';
+import File from '../shared/File';
 import Topic from './Topic';
 
 @Entity({ name: 'posts' })
@@ -30,6 +31,9 @@ export default class Post extends BaseModel {
 
   @Column()
   isPinned: boolean;
+
+  @Column('jsonb', { nullable: true })
+  image: File;
 
   @ManyToOne(() => Employee, (author) => author.posts)
   author: Employee;

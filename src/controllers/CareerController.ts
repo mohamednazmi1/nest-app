@@ -26,8 +26,8 @@ export default class CareerController {
     const benefits = await this.workBenefitRepository.findAll();
     const careers = await this.careerRepository.findAll();
     const data = {
-      benefits: benefits.map((benefit) =>
-        this.workBenefitMapper.toDto(benefit),
+      benefits: await Promise.all(
+        benefits.map((benefit) => this.workBenefitMapper.toDto(benefit)),
       ),
       careers: careers.map((career) => this.careerMapper.toDto(career)),
     };

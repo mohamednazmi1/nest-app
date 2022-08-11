@@ -25,10 +25,14 @@ export default class ServiceController {
     const services = await this.serviceRepository.findAll();
     const projects = await this.projectRepository.findInHome();
     const data = {
-      services: services.map((service) =>
-        this.serviceMapper.toDto(service, { detailed: true }),
+      services: await Promise.all(
+        services.map((service) =>
+          this.serviceMapper.toDto(service, { detailed: true }),
+        ),
       ),
-      projects: projects.map((project) => this.projectMapper.toDto(project)),
+      projects: await Promise.all(
+        projects.map((project) => this.projectMapper.toDto(project)),
+      ),
     };
     return this.responder.format(meta, data);
   }

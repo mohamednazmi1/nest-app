@@ -5,12 +5,12 @@ import File from '../shared/File';
 import Post from './Post';
 import { TrimTransformer } from './transformers';
 
-@Entity({ name: 'team_members' })
+@Entity({ name: 'employees' })
 export default class Employee extends BaseModel {
   @Column({ transformer: TrimTransformer })
   name: string;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   workPosition: string;
 
   @Column('jsonb', { nullable: true })

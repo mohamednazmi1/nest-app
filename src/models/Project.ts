@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import File from '../shared/File';
 import Platform from '@src/shared/Platform';
 import Service from './Service';
 import Technology from './Technology';
@@ -43,6 +44,12 @@ export default class Project extends BaseModel {
 
   @Column({ nullable: true })
   outcome: string;
+
+  @Column('jsonb', { nullable: true })
+  image: File;
+
+  @Column('jsonb', { nullable: true })
+  coverImage: File;
 
   /* @Column({ nullable: true })
   ios: string;

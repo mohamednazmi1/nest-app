@@ -1,6 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import File from '../shared/File';
 import { TrimTransformer } from './transformers';
 
 @Entity({ name: 'work_benefits' })
@@ -10,6 +11,9 @@ export default class WorkBenefit extends BaseModel {
 
   @Column({ transformer: TrimTransformer })
   description: string;
+
+  @Column('jsonb', { nullable: true })
+  image: File;
 
   @BeforeInsert()
   @BeforeUpdate()

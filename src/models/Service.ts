@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import BaseModel from './BaseModel';
+import File from '../shared/File';
 import Project from './Project';
 
 @Entity({ name: 'services' })
@@ -26,6 +27,9 @@ export default class Service extends BaseModel {
 
   @Column('character varying', { array: true, default: [] })
   items: string[];
+
+  @Column('jsonb', { nullable: true })
+  image: File;
 
   @ManyToMany(() => Project, (project) => project.services)
   @JoinTable({

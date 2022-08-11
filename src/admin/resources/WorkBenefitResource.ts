@@ -10,6 +10,7 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const WorkBenefitResource: ResourceWithOptions = {
   resource: WorkBenefit,
@@ -17,6 +18,7 @@ const WorkBenefitResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'title' }),
+      ...getMediaProperties('image'),
     },
     actions: {
       list: {
@@ -31,10 +33,11 @@ const WorkBenefitResource: ResourceWithOptions = {
       bulkDelete: { isAccessible: false },
     },
     listProperties: [...baseListProperties, 'title', 'description'],
-    showProperties: [...baseShowProperties, 'title', 'description'],
-    editProperties: [...baseEditProperties, 'title', 'description'],
+    showProperties: [...baseShowProperties, 'title', 'description', 'image'],
+    editProperties: [...baseEditProperties, 'title', 'description', 'image'],
     filterProperties: [...baseFilterProperties, 'title'],
   },
+  features: [getMediaFeature('image')],
 };
 
 export default WorkBenefitResource;

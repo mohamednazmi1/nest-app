@@ -8,7 +8,8 @@ export default interface PostDto extends BaseDto {
   readTime: number;
   createdAt: Date;
   author: EmployeeDto;
-  relatedTopic: TopicDto;
+  topic: TopicDto;
+  image: string | null;
 }
 
 export interface DetailedPostDto extends PostDto {

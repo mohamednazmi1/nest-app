@@ -20,8 +20,10 @@ export default class PartnerController {
     const meta = await this.metaRepository.findByKey(MetaKey.Partner);
     const testimonials = await this.testimonialRepository.findAll();
     const data = {
-      testimonials: testimonials.map((testimonial) =>
-        this.testimonialMapper.toDto(testimonial),
+      testimonials: await Promise.all(
+        testimonials.map((testimonial) =>
+          this.testimonialMapper.toDto(testimonial),
+        ),
       ),
     };
     return this.responder.format(meta, data);

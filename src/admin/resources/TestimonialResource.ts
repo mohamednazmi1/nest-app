@@ -10,6 +10,7 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const TestimonialResource: ResourceWithOptions = {
   resource: Testimonial,
@@ -17,6 +18,7 @@ const TestimonialResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'authorName' }),
+      ...getMediaProperties('authorImage'),
     },
     actions: {
       list: {
@@ -40,16 +42,19 @@ const TestimonialResource: ResourceWithOptions = {
       ...baseShowProperties,
       'authorName',
       'authorPosition',
+      'authorImage',
       'description',
     ],
     editProperties: [
       ...baseEditProperties,
       'authorName',
       'authorPosition',
+      'authorImage',
       'description',
     ],
     filterProperties: [...baseFilterProperties, 'authorName'],
   },
+  features: [getMediaFeature('authorImage')],
 };
 
 export default TestimonialResource;

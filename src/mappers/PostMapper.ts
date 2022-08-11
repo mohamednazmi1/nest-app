@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import BaseMapper from './BaseMapper';
 import EmployeeMapper from './EmployeeMapper';
+import FileManager from '@src/utils/FileManager';
 import Post from '@src/models/Post';
 import PostDto, { DetailedPostDto } from '@src/dtos/PostDto';
 import TopicMapper from './TopicMapper';
@@ -15,6 +16,7 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
   constructor(
     private readonly employeeMapper: EmployeeMapper,
     private readonly topicMapper: TopicMapper,
+    private readonly fileManager: FileManager,
   ) {
     super();
   }
@@ -34,7 +36,8 @@ export default class PostMapper extends BaseMapper<Post, PostDto> {
       readTime: post.readTime,
       createdAt: post.createdAt,
       author: await this.employeeMapper.toDto(post.author),
-      relatedTopic: this.topicMapper.toDto(post.topic),
+      topic: this.topicMapper.toDto(post.topic),
+      image: post.image && (await this.fileManager.getUrl(post.image)),
     };
   }
 

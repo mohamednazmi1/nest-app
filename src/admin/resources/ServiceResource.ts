@@ -10,6 +10,7 @@ import {
   beforeList,
   getBaseProperties,
 } from './BaseResource';
+import { getMediaFeature, getMediaProperties } from '../features/Media';
 
 const ServiceResource: ResourceWithOptions = {
   resource: Service,
@@ -17,6 +18,7 @@ const ServiceResource: ResourceWithOptions = {
     parent: Sidebar.Admin,
     properties: {
       ...getBaseProperties({ title: 'name' }),
+      ...getMediaProperties('image'),
     },
     actions: {
       list: {
@@ -37,6 +39,7 @@ const ServiceResource: ResourceWithOptions = {
       'brief',
       'fillerText1',
       'fillerText2',
+      'image',
     ],
     editProperties: [
       ...baseEditProperties,
@@ -44,9 +47,11 @@ const ServiceResource: ResourceWithOptions = {
       'brief',
       'fillerText1',
       'fillerText2',
+      'image',
     ],
     filterProperties: [...baseFilterProperties, 'name'],
   },
+  features: [getMediaFeature('image')],
 };
 
 export default ServiceResource;
