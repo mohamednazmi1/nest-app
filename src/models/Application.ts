@@ -1,32 +1,37 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne } from 'typeorm';
 
+import { TrimAndLowerTransformer, TrimTransformer } from './transformers';
 import BaseModel from './BaseModel';
 import Career from './Career';
+import Level from '@src/shared/Level';
 
-@Entity({ name: 'position_applications' })
+@Entity({ name: 'applications' })
 export default class Application extends BaseModel {
-  @Column()
+  @Column({ transformer: TrimTransformer })
   name: string;
 
-  @Column()
+  @Column({ transformer: TrimTransformer })
   phone: string;
 
-  @Column()
+  @Column({ transformer: TrimAndLowerTransformer })
   email: string;
 
   @Column()
   message: string;
 
-  @Column({ name: 'social_links', nullable: true })
+  @Column({ nullable: true })
   linkedin: string;
 
-  @Column({ name: 'graduation', nullable: true })
+  @Column({ nullable: true })
   graduationYear: string;
 
   @Column({ nullable: true })
   university: string;
 
-  @Column()
+  @Column({ enum: Level, default: Level.Review })
+  level: Level;
+
+  @Column({ default: false })
   rejectSent: boolean;
 
   @ManyToOne(() => Career, (career) => career.applications)

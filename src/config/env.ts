@@ -13,7 +13,7 @@ const getEnv = (env?: string): Env => {
 
 const config = {
   env: getEnv(process.env.NODE_ENV),
-  port: process.env.PORT || 3001,
+  port: +(process.env.PORT || 3000),
   db: {
     host: process.env.PSQL_HOST || 'localhost',
     port: 5432,

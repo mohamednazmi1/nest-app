@@ -29,7 +29,7 @@ export default class Post extends BaseModel {
   @Column()
   numOfVisits: number;
 
-  @Column()
+  @Column({ default: false })
   isPinned: boolean;
 
   @Column('jsonb', { nullable: true })
